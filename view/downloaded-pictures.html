@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Google Images</title>
+    <link href="css/main.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" defer></script>
+    <script src="js/bootstrap.min.js" defer></script>
+    <script src="js/bootstrap-select.min.js" defer></script>
+    <script src="js/google-image.min.js" defer></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js" defer></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js" defer></script>
+    <![endif]-->
+  </head>
+  <body>
+   <a href="index.php" class="btn btn-default margin10">Поиск новых картинок</a>
+    <div id="downloaded-pictures"></div>
+    <div class="row margin10">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8 txtCenter">
+        <div id="pagination"></div>
+        <select id="numImgOnPage" class="selectpicker show-menu-arrow" data-width="130px" onchange="DownloadImgUrl.printImages('1');">
+          <option value="10">Показать 10</option>
+          <option value="20">Показать 20</option>
+          <option value="30">Показать 30</option>
+          <option value="40">Показать 40</option>
+          <option value="80">Показать 80</option>
+          <option value="160">Показать 160</option>
+          <option value="220">Показать 220</option>
+        </select>
+    </div>
+    <div class="col-sm-2"></div>
+    </div>
+    <span id="back-top" href="#top"></span>
+  </body>
+</html>

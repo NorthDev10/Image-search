@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Google Images</title>
+    <link href="css/main.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" defer></script>
+    <script src="js/bootstrap.min.js" defer></script>
+    <script src="js/bootstrap-select.min.js" defer></script>
+    <script src="js/google-image.min.js" defer></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js" defer></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js" defer></script>
+    <![endif]-->
+  </head>
+  <body>
+<div id="topNav" class="row">
+    <div class="col-xs-1 col-sm-2"></div>
+    <div class="col-xs-8 col-sm-8">
+      <div class="row">
+        <div class="col-xs-2 col-sm-1">
+          <a class="btn btn-info previousLineBtn" onclick="DownloadImgUrl.previousLineBtn();"><</a>
+        </div>
+        <div class="col-xs-8 col-sm-10">
+          <div class="previousLineKeyWords"></div>
+          <div class="currentLineKeyWords"></div>
+          <div class="nextLineKeyWords"></div>
+        </div>
+        <div class="col-xs-1 col-sm-1">
+          <a class="btn btn-info nextLineBtn" onclick="DownloadImgUrl.nextLineBtn();">></a>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-1 col-sm-2">
+      <input type="button" class="topNavSearch btn btn-success" onclick="DownloadImgUrl.getImg(1, true);" value="Поиск"/>  
+    </div>
+</div>
+    <a href="index.php?q=show-all-img" class="btn btn-default margin10">Все загруженные картинки</a>
+    <div class="panel panel-info margin10">
+      <div class="panel-heading">
+        <h3 class="panel-title">Настройки поиска</h3>
+      </div>
+      <div class="panel-body">
+            <div class="margin5">
+              <select id="searchSettings" class="selectpicker margin5" multiple data-width="270px">
+                <optgroup label="Формат изображения" data-max-options="1">
+                  <option value="fileType=jpg">JPEG</option>
+                  <option value="fileType=png">PNG</option>
+                  <option value="fileType=gif">GIF</option>
+                </optgroup>
+                <optgroup label="Цвет изображения" data-max-options="1">
+                  <option value="imgColorType=color">Только цветные</option>
+                  <option value="imgColorType=gray">Чёрно-белые</option>
+                </optgroup>
+                <optgroup label="Размер изображения" data-max-options="1">
+                  <option value="imgSize=huge">Гигантские</option>
+                  <option value="imgSize=xxlarge">Громадные</option>
+                  <option value="imgSize=xlarge">Огромные</option>
+                  <option value="imgSize=large">Большие</option>
+                  <option value="imgSize=medium">Средние</option>
+                  <option value="imgSize=small">Маленькие</option>
+                  <option value="imgSize=icon">Иконки</option>
+                </optgroup>
+              </select>
+              <select id="noSearchDomain" class="selectpicker margin5" multiple data-actions-box="true" data-width="225px">
+                <optgroup label="Исключить поиск по домену">
+                  <option value="-site:ru">ru</option>
+                  <option value="-site:su">su</option>
+                  <option value="-site:рф">рф</option>
+                </optgroup>
+              </select>
+              <select id="countryID" class="selectpicker margin5" multiple data-live-search="true">
+                <optgroup label="Выберите страну" data-max-options="7">
+                  <option value="countryAU">Австралия</option>
+                  <option value="countryAT">Австрия</option>
+                  <option value="countryAZ">Азербайджан</option>
+                  <option value="countryAX">Аландские острова</option>
+                  <option value="countryAL">Албания</option>
+                  <option value="countryDZ">Алжир</option>
+                  <option value="countryAS">Американское Самоа</option>
+                  <option value="countryAI">Ангилья</option>
+                  <option value="countryAO">Ангола</option>
+                  <option value="countryAD">Андорра</option>
+                  <option value="countryAQ">Антарктида</option>
+                  <option value="countryAG">Антигуа и Барбуда</option>
+                  <option value="countryAR">Аргентина</option>
+                  <option value="countryAM">Армения</option>
+                  <option value="countryAW">Аруба</option>
+                  <option value="countryAF">Афганистан</option>
+                  <option value="countryBS">Багамы</option>
+                  <option value="countryBD">Бангладеш</option>
+                  <option value="countryBB">Барбадос</option>
+                  <option value="countryBH">Бахрейн</option>
+                  <option value="countryBZ">Белиз</option>
+                  <option value="countryBY">Белоруссия</option>
+                  <option value="countryBE">Бельгия</option>
+                  <option value="countryBJ">Бенин</option>
+                  <option value="countryBM">Бермуды</option>
+                  <option value="countryBG">Болгария</option>
+                  <option value="countryBO">Боливия</option>
+                  <option value="countryBA">Босния и Герцеговина</option>
+                  <option value="countryBW">Ботсвана</option>
+                  <option value="countryBR">Бразилия</option>
+                  <option value="countryVG">Британские Виргинские острова</option>
+                  <option value="countryBN">Бруней</option>
+                  <option value="countryBF">Буркина-Фасо</option>
+                  <option value="countryBI">Бурунди</option>
+                  <option value="countryBT">Бутан</option>
+                  <option value="countryVU">Вануату</option>
+                  <option value="countryVA">Ватикан</option>
+                  <option value="countryGB">Великобритания</option>
+                  <option value="countryHU">Венгрия</option>
+                  <option value="countryVE">Венесуэла</option>
+                  <option value="countryVI">Виргинские Острова (США)</option>
+                  <option value="countryUM">Внешние малые острова (США)</option>
+                  <option value="countryTL">Восточный Тимор</option>
+                  <option value="countryVN">Вьетнам</option>
+                  <option value="countryGA">Габон</option>
+                  <option value="countryHT">Гаити</option>
+                  <option value="countryGY">Гайана</option>
+                  <option value="countryGM">Гамбия</option>
+                  <option value="countryGH">Гана</option>
+                  <option value="countryGP">Гваделупа</option>
+                  <option value="countryGT">Гватемала</option>
+                  <option value="countryGF">Гвиана</option>
+                  <option value="countryGW">Гвинея-Бисау</option>
+                  <option value="countryGN">Гвинея</option>
+                  <option value="countryDE">Германия</option>
+                  <option value="countryGG">Гернси</option>
+                  <option value="countryGI">Гибралтар</option>
+                  <option value="countryHN">Гондурас</option>
+                  <option value="countryHK">Гонконг</option>
+                  <option value="countryPS">Государство Палестина</option>
+                  <option value="countryGD">Гренада</option>
+                  <option value="countryGL">Гренландия</option>
+                  <option value="countryGR">Греция</option>
+                  <option value="countryGE">Грузия</option>
+                  <option value="countryGU">Гуам</option>
+                  <option value="countryDK">Дания</option>
+                  <option value="countryJE">Джерси</option>
+                  <option value="countryDJ">Джибути</option>
+                  <option value="countryDM">Доминика</option>
+                  <option value="countryDO">Доминиканская Республика</option>
+                  <option value="countryEG">Египет</option>
+                  <option value="countryZM">Замбия</option>
+                  <option value="countryZW">Зимбабве</option>
+                  <option value="countryIL">Израиль</option>
+                  <option value="countryIN">Индия</option>
+                  <option value="countryID">Индонезия</option>
+                  <option value="countryJO">Иордания</option>
+                  <option value="countryIQ">Ирак</option>
+                  <option value="countryIR">Иран</option>
+                  <option value="countryIS">Исландия</option>
+                  <option value="countryES">Испания</option>
+                  <option value="countryIT">Италия</option>
+                  <option value="countryYE">Йемен</option>
+                  <option value="countryCV">Кабо-Верде</option>
+                  <option value="countryKZ">Казахстан</option>
+                  <option value="countryKH">Камбоджа</option>
+                  <option value="countryCM">Камерун</option>
+                  <option value="countryCA">Канада</option>
+                  <option value="countryQA">Катар</option>
+                  <option value="countryKE">Кения</option>
+                  <option value="countryCY">Кипр</option>
+                  <option value="countryKG">Киргизия</option>
+                  <option value="countryKI">Кирибати</option>
+                  <option value="countryTW">Китайская Республика</option>
+                  <option value="countryKP">КНДР</option>
+                  <option value="countryCN">КНР</option>
+                  <option value="countryCC">Кокосовые острова</option>
+                  <option value="countryCO">Колумбия</option>
+                  <option value="countryKM">Коморы</option>
+                  <option value="countryCR">Коста-Рика</option>
+                  <option value="countryCI">Кот-д’Ивуар</option>
+                  <option value="countryCU">Куба</option>
+                  <option value="countryKW">Кувейт</option>
+                  <option value="countryCW">Кюрасао</option>
+                  <option value="countryLA">Лаос</option>
+                  <option value="countryLV">Латвия</option>
+                  <option value="countryLS">Лесото</option>
+                  <option value="countryLR">Либерия</option>
+                  <option value="countryLB">Ливан</option>
+                  <option value="countryLY">Ливия</option>
+                  <option value="countryLT">Литва</option>
+                  <option value="countryLI">Лихтенштейн</option>
+                  <option value="countryLU">Люксембург</option>
+                  <option value="countryMU">Маврикий</option>
+                  <option value="countryMR">Мавритания</option>
+                  <option value="countryMG">Мадагаскар</option>
+                  <option value="countryYT">Майотта</option>
+                  <option value="countryMO">Макао</option>
+                  <option value="countryMK">Македония</option>
+                  <option value="countryMW">Малави</option>
+                  <option value="countryMY">Малайзия</option>
+                  <option value="countryML">Мали</option>
+                  <option value="countryMV">Мальдивы</option>
+                  <option value="countryMT">Мальта</option>
+                  <option value="countryMA">Марокко</option>
+                  <option value="countryMQ">Мартиника</option>
+                  <option value="countryMH">Маршалловы Острова</option>
+                  <option value="countryMX">Мексика</option>
+                  <option value="countryFM">Микронезия</option>
+                  <option value="countryMZ">Мозамбик</option>
+                  <option value="countryMD">Молдавия</option>
+                  <option value="countryMC">Монако</option>
+                  <option value="countryMN">Монголия</option>
+                  <option value="countryMS">Монтсеррат</option>
+                  <option value="countryMM">Мьянма</option>
+                  <option value="countryNA">Намибия</option>
+                  <option value="countryNR">Науру</option>
+                  <option value="countryNP">Непал</option>
+                  <option value="countryNE">Нигер</option>
+                  <option value="countryNG">Нигерия</option>
+                  <option value="countryNL">Нидерланды</option>
+                  <option value="countryNI">Никарагуа</option>
+                  <option value="countryNU">Ниуэ</option>
+                  <option value="countryNZ">Новая Зеландия</option>
+                  <option value="countryNC">Новая Каледония</option>
+                  <option value="countryNO">Норвегия</option>
+                  <option value="countryAE">ОАЭ</option>
+                  <option value="countryOM">Оман</option>
+                  <option value="countryBV">Остров Буве</option>
+                  <option value="countryIM">Остров Мэн</option>
+                  <option value="countryNF">Остров Норфолк</option>
+                  <option value="countryCX">Остров Рождества</option>
+                  <option value="countryKY">Острова Кайман</option>
+                  <option value="countryCK">Острова Кука</option>
+                  <option value="countryPN">Острова Питкэрн</option>
+                  <option value="countryPK">Пакистан</option>
+                  <option value="countryPW">Палау</option>
+                  <option value="countryPA">Панама</option>
+                  <option value="countryPG">Папуа — Новая Гвинея</option>
+                  <option value="countryPY">Парагвай</option>
+                  <option value="countryPE">Перу</option>
+                  <option value="countryPL">Польша</option>
+                  <option value="countryPT">Португалия</option>
+                  <option value="countryPR">Пуэрто-Рико</option>
+                  <option value="countryCG">Республика Конго</option>
+                  <option value="countryKR">Республика Корея</option>
+                  <option value="countryRE">Реюньон</option>
+                  <option value="countryRU">Россия</option>
+                  <option value="countryRW">Руанда</option>
+                  <option value="countryRO">Румыния</option>
+                  <option value="countryEH">САДР</option>
+                  <option value="countrySV">Сальвадор</option>
+                  <option value="countryWS">Самоа</option>
+                  <option value="countrySM">Сан-Марино</option>
+                  <option value="countryST">Сан-Томе и Принсипи</option>
+                  <option value="countrySA">Саудовская Аравия</option>
+                  <option value="countrySZ">Свазиленд</option>
+                  <option value="countryMP">Северные Марианские острова</option>
+                  <option value="countrySC">Сейшельские Острова</option>
+                  <option value="countryBL">Сен-Бартелеми</option>
+                  <option value="countryMF">Сен-Мартен</option>
+                  <option value="countryPM">Сен-Пьер и Микелон</option>
+                  <option value="countrySN">Сенегал</option>
+                  <option value="countryVC">Сент-Винсент и Гренадины</option>
+                  <option value="countryKN">Сент-Китс и Невис</option>
+                  <option value="countryLC">Сент-Люсия</option>
+                  <option value="countryRS">Сербия</option>
+                  <option value="countrySG">Сингапур</option>
+                  <option value="countrySX">Синт-Мартен</option>
+                  <option value="countrySY">Сирия</option>
+                  <option value="countrySK">Словакия</option>
+                  <option value="countrySI">Словения</option>
+                  <option value="countrySB">Соломоновы Острова</option>
+                  <option value="countrySO">Сомали</option>
+                  <option value="countrySU">СССР (до сентября 1992 года)</option>
+                  <option value="countrySD">Судан</option>
+                  <option value="countrySR">Суринам</option>
+                  <option value="countryUS">США</option>
+                  <option value="countrySL">Сьерра-Леоне</option>
+                  <option value="countryTJ">Таджикистан</option>
+                  <option value="countryTH">Таиланд</option>
+                  <option value="countryTZ">Танзания</option>
+                  <option value="countryTC">Тёркс и Кайкос</option>
+                  <option value="countryTG">Того</option>
+                  <option value="countryTK">Токелау</option>
+                  <option value="countryTO">Тонга</option>
+                  <option value="countryTT">Тринидад и Тобаго/option>
+                  <option value="countryTV">Тувалу</option>
+                  <option value="countryTN">Тунис</option>
+                  <option value="countryTM">Туркмения</option>
+                  <option value="countryTR">Турция</option>
+                  <option value="countryUG">Уганда</option>
+                  <option value="countryUZ">Узбекистан</option>
+                  <option value="countryUA">Украина</option>
+                  <option value="countryWF">Уоллис и Футуна</option>
+                  <option value="countryUY">Уругвай</option>
+                  <option value="countryFO">Фареры</option>
+                  <option value="countryFJ">Фиджи</option>
+                  <option value="countryPH">Филиппины</option>
+                  <option value="countryFI">Финляндия</option>
+                  <option value="countryEU">Европейский союз</option>
+                  <option value="countryIE">Ирландия</option>
+                  <option value="countrySJ">Шпицберген и Ян-Майен</option>
+                  <option value="countryFK">Фолклендские острова</option>
+                  <option value="countryFR">Франция</option>
+                  <option value="countryPF">Французская Полинезия</option>
+                  <option value="countryHM">Херд и Макдональд</option>
+                  <option value="countryHR">Хорватия</option>
+                  <option value="countryCF">ЦАР</option>
+                  <option value="countryTD">Чад</option>
+                  <option value="countryME">Черногория</option>
+                  <option value="countryCZ">Чехия</option>
+                  <option value="countryCL">Чили</option>
+                  <option value="countryCH">Швейцария</option>
+                  <option value="countrySE">Швеция</option>
+                  <option value="countryLK">Шри-Ланка</option>
+                  <option value="countryEC">Эквадор</option>
+                  <option value="countryER">Эритрея</option>
+                  <option value="countryEE">Эстония</option>
+                  <option value="countryET">Эфиопия</option>
+                  <option value="countryZA">ЮАР</option>
+                  <option value="countrySS">Южный Судан</option>
+                  <option value="countryJM">Ямайка</option>
+                  <option value="countryJP">Япония</option>
+                </optgroup>
+              </select>
+              <input id="searchSite" type="text" class="form-control input-style" placeholder="На сайте">
+              <p>Добавить к запросу чёрный список доменов:
+                <input id="blackDomains" type="checkbox">
+              </p>
+            </div>
+            <div class="margin5">
+              <textarea id="textBlock" class="form-control input-style" onchange="DownloadImgUrl.initArrayKeyWords();"></textarea>
+              <input id="buttonSearchOnForm" type="button" class="btn btn-info" onclick="DownloadImgUrl.getImg(1, true);" value="Поиск">
+          </div>
+      </div>
+      </div>
+      <div id="iamgeList" class="padding10"></div>
+      <ul id="pageNav" class="pagination padding10"></ul>
+      <div id="uploadIMG" class="padding10">
+          <input type="button" class="btn btn-default" onclick="DownloadImgUrl.sendUrlImage();" value="Загрузить картинки"/>
+          <input id="folderName" type="text" class="form-control input-style">
+          <img class="displayHide" src="725.GIF"/>
+      </div>
+    <h3>Загруженные картинки</h3>
+    <div id="downloadedImg"></div>
+    <span id="back-top" href="#top"></span>
+  </body>
+</html>

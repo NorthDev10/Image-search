@@ -1,0 +1,8 @@
+AddDefaultCharset utf-8
+Options -Indexes
+php_flag magic_quotes_gpc Off
+
+<files "api-keys.json">
+Order Deny,Allow
+Deny from all
+</files>
